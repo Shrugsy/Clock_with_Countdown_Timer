@@ -55,6 +55,7 @@ class Clock extends React.Component {
     if (toggleClassName === 'fas fa-toggle-off') {
       x.style.display = '';
       //tell electron-starter.js to resize the window (if in electron)
+      //thanks to the following comment for the advice: https://github.com/electron/electron/issues/9920#issuecomment-336757899
       if (isElectron()){
         window.ipcRenderer.send('make-large')
       }
