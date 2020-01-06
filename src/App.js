@@ -48,12 +48,12 @@ class Clock extends React.Component {
   }
 
   toggle() {
-    let x = document.getElementById('countdown');
+    let x = document.getElementById('timer');
     //x.style.display = (x.style.display === 'none') ? '' : 'none'
     let toggleClassName = this.state.toggleClassName
 
     if (toggleClassName === 'fas fa-toggle-off') {
-      x.style.display = '';
+      x.style.display = 'inline-block';
       //tell electron-starter.js to resize the window (if in electron)
       //thanks to the following comment for the advice: https://github.com/electron/electron/issues/9920#issuecomment-336757899
       if (isElectron()){
@@ -74,15 +74,46 @@ class Clock extends React.Component {
 
   }
 
-  //replace 'Toggle timer' with an icon later
+  getTimeHTML() {
+    let leadingZero;
+    if (this.state.date.getHours() < 10) {
+      leadingZero = <span className = 'time-inactive'>0</span>
+    } else {
+      leadingZero = null
+    }
+
+    let secs = this.state.date.getSeconds();
+    if (secs < 10) {
+      secs = '0' + secs.toString()
+    }
+
+    let mins = this.state.date.getMinutes();
+    if (mins < 10) {
+      mins = '0' + mins.toString()
+    }
+
+    return (<div className='timeContainer' style={{position:'relative'}}>
+      {leadingZero}
+      <span className = 'time time-hrs'>{this.state.date.getHours()}</span>
+      <span className = 'sep sep-0'>:</span>
+      <span className = 'time time-mins'>{mins}</span>
+      <span className = 'sep sep-1'>:</span>
+      <span className = 'time time-secs'>{secs}</span>
+      </div>
+    )
+  }
+
   render() {
     return (
-      <div style={{width: '100%'}}>
-        <span className = 'time'>
-          {this.state.date.toLocaleTimeString('en-us', {hour12: true})}
-        </span>
+      <div id="clock">
+        <div style={{position: 'relative', height: "100px"}}>
+          <div className='timeString'>
+          {this.getTimeHTML()}
+          </div>
+          <button className='btn btn-primary expand' onClick={() => this.toggle()}><i className='fas fa-stopwatch'>:</i> <i className={this.state.toggleClassName}></i></button>
+          <span className = 'timePeriod'>{this.state.date.toLocaleTimeString('en-us', {hour12: true}).slice(-2)}</span>
+        </div>
         <hr style={{width: '100%'}}></hr>
-        <button className='btn btn-primary expand' onClick={() => this.toggle()}><i className='far fa-clock'></i> <i className={this.state.toggleClassName}></i></button>
       </div>
               
     )
@@ -124,6 +155,8 @@ class Countdown extends React.Component {
   componentWillUnmount() {
     document.removeEventListener('nums', this.handleNums);
   }
+
+
 
   handleNums = (event) => {
     if (this.state.inputMode) {
@@ -201,18 +234,21 @@ class Countdown extends React.Component {
       duration: this.state.timeRemaining
     })
   }
+  // style={{display: 'inline', float:'right', position:'absolute', bottom:25, right:25}}
 
   render() {
     return (
-      <div id='countdown' style={{display: 'none'}}>
-        <Counter
-          onClick = {() => this.enterInputMode()}
-          time = {this.state.formattedTime}
-          inputMode = {this.state.inputMode}
-        />
-        <button id='start' className = 'btn btn-primary' onClick={()=>this.start()}>START</button> <button id='stop' className = 'btn btn-primary' onClick={()=>this.stop()}>STOP</button>
-        <br></br>
-        <audio ref={ref => {this.player = ref}} src="german-shephard-daniel_simon.mp3"/>
+      <div id="countdown">
+        <div id='timer' className='timeContainer' style={{display: 'none'}}>
+          <Counter
+            onClick = {() => this.enterInputMode()}
+            time = {this.state.formattedTime}
+            inputMode = {this.state.inputMode}
+          />
+          <button id='start' className = 'btn btn-primary startStop btn-success' onClick={()=>this.start()}>START</button> <button id='stop' className = 'btn btn-primary startStop btn-danger' onClick={()=>this.stop()}>STOP</button>
+          <br></br>
+          <audio ref={ref => {this.player = ref}} src="german-shephard-daniel_simon.mp3"/>
+        </div>
       </div>
     )
   }
@@ -236,23 +272,44 @@ function parseTime(time) {
 
 function Counter(props) {
   let t = props.time
-  let timeClassName = (props.inputMode) ? 'time-input' : 'time'
+
+  let classStringArray = ['hrs0', 'hrs1', 'mins0', 'mins1', 'secs0', 'secs1']
+
+  function makeSpan(i) {
+
+    let x = true;
+    if (i === 5) { 
+      x = false;
+    } else {
+      for (let k = 0; k <= i; k++) {
+        if (t[k] !== 0) { x = false;}
+      }
+    }
+
+
+    if (x || props.inputMode) {
+      return <span className = {'time time-' + classStringArray[i] + ' time-inactive'}>{t[i]}</span>
+    } else {
+      return <span className = {'time time-' + classStringArray[i]}>{t[i]}</span>
+    }
+  }
 
   return (
     <div
       onClick = {props.onClick}
+      className = 'timeString'
     >
-      <span className = {timeClassName}>{t[0]}</span>
-      <span className = {timeClassName}>{t[1]}</span>
-      <span className = 'separator'>h</span>
+      {makeSpan(0)}
+      {makeSpan(1)}
+      <span className = 'sep sep-0'>h</span>
       &nbsp;
-      <span className = {timeClassName}>{t[2]}</span>
-      <span className = {timeClassName}>{t[3]}</span>
-      <span className = 'separator'>m</span>
+      {makeSpan(2)}
+      {makeSpan(3)}
+      <span className = 'sep sep-1'>m</span>
       &nbsp;
-      <span className = {timeClassName}>{t[4]}</span>
-      <span className = {timeClassName}>{t[5]}</span>
-      <span className = 'separator'>s</span>
+      {makeSpan(4)}
+      {makeSpan(5)}
+      <span className = 'sep sep-2'>s</span>
     </div>
 
   )

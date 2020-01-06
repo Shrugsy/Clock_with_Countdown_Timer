@@ -13,9 +13,9 @@ const url = require('url');
 // be closed automatically when the JavaScript object is garbage collected.
 let mainWindow;
 
-let width = 450;
-let heightSmall = 200;
-let heightLarge = 360;
+let width = 480;
+let heightSmall = 145;
+let heightLarge = 250;
 
 const {ipcMain} = require('electron')
 

@@ -7,5 +7,4 @@ Run using `npm run dev` (this uses Node Foreman to start React & Electron based 
 
 Build using `npm run pack`.
 
-![Clock](https://raw.githubusercontent.com/Shrugsy/Clock_with_Countdown_Timer/master/img1.png)
-![Clock_with_timer](https://raw.githubusercontent.com/Shrugsy/Clock_with_Countdown_Timer/master/img2.png)
+![Clock with various states](https://raw.githubusercontent.com/Shrugsy/Clock_with_Countdown_Timer/master/img1.png)
