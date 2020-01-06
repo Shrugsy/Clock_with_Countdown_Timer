@@ -7,7 +7,8 @@ Run using `npm run dev` (this uses Node Foreman to start React & Electron based 
 
 Build using `npm run pack`.
 
-Try here with the latest executable release:
-[0.2.0](https://github.com/Shrugsy/Clock_with_Countdown_Timer/releases/download/0.2.0/ClockWithCountdownTimer_0.2.0.zip)
+## Download
+Try the latest executable release:
+[0.2.0 (67mb)](https://github.com/Shrugsy/Clock_with_Countdown_Timer/releases/download/0.2.0/ClockWithCountdownTimer_0.2.0.zip)
 
 ![Clock with various states](https://raw.githubusercontent.com/Shrugsy/Clock_with_Countdown_Timer/master/img1.png)
