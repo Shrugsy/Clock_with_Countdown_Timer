@@ -9,6 +9,6 @@ Build using `npm run pack`.
 
 ## Download
 Try the latest executable release:
-[0.2.0 (67mb)](https://github.com/Shrugsy/Clock_with_Countdown_Timer/releases/download/0.2.0/ClockWithCountdownTimer_0.2.0.zip)
+[0.2.1 (46.6mb)](https://github.com/Shrugsy/Clock_with_Countdown_Timer/releases/download/0.2.1/ClockWithCountdownTimer_0.2.1.zip)
 
 ![Clock with various states](https://raw.githubusercontent.com/Shrugsy/Clock_with_Countdown_Timer/master/img1.png)
