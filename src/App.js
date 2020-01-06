@@ -75,11 +75,9 @@ class Clock extends React.Component {
   }
 
   getTimeHTML() {
-    let leadingZero;
-    if (this.state.date.getHours() < 10) {
-      leadingZero = <span className = 'time-inactive'>0</span>
-    } else {
-      leadingZero = null
+    let hrs = this.state.date.getHours();
+    if (hrs < 10) {
+      hrs = '0' + hrs.toString();
     }
 
     let secs = this.state.date.getSeconds();
@@ -93,8 +91,7 @@ class Clock extends React.Component {
     }
 
     return (<div className='timeContainer' style={{position:'relative'}}>
-      {leadingZero}
-      <span className = 'time time-hrs'>{this.state.date.getHours()}</span>
+      <span className = 'time time-hrs'>{hrs}</span>
       <span className = 'sep sep-0'>:</span>
       <span className = 'time time-mins'>{mins}</span>
       <span className = 'sep sep-1'>:</span>
@@ -226,7 +223,9 @@ class Countdown extends React.Component {
   stop() {
     clearInterval(this.timerID)
     this.player.pause()
-    this.player.currentTime = 0;
+    //use this rather than simply setting currentTime to 0 so as to completely stop the player rather than only pausing. This prevents the play/pause media key from resuming the player independent of the timer
+    this.player.src = this.player.src;
+    //this.player.currentTime = 0;
     document.getElementById('stop').style.display = 'none'
     document.getElementById('start').style.display = ''
 
