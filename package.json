@@ -63,7 +63,7 @@
     ],
     "directories": {
       "buildResources": "public",
-      "output": "${productName}v0"
+      "output": "dist/${productName}_${version}"
     }
   }
 }
