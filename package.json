@@ -1,26 +1,39 @@
 {
   "name": "clock_with_countdown_timer",
   "version": "0.1.0",
+  "author": {
+    "name": "Joshua Fraser",
+    "url": "https://github.com/Shrugsy"
+  },
   "private": true,
   "dependencies": {
     "@testing-library/jest-dom": "^4.2.4",
     "@testing-library/react": "^9.3.3",
     "@testing-library/user-event": "^7.1.2",
-    "electron": "^7.1.4",
     "is-electron": "^2.2.0",
     "react": "^16.12.0",
-    "react-dom": "^16.12.0",
-    "react-scripts": "3.3.0"
+    "react-dom": "^16.12.0"
+  },
+  "devDependencies": {
+    "electron": "^7.1.7",
+    "electron-builder": "^21.2.0",
+    "foreman": "^3.0.1",
+    "react-scripts": "^3.3.0",
+    "typescript": "^3.7.4"
   },
   "homepage": "./",
-  "main": "src/electron-starter.js",
+  "main": "public/electron.js",
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
     "electron": "electron .",
-    "dev": "nf start -p 3000"
+    "dev": "nf start -p 3000",
+    "preelectron-pack": "npm run build",
+    "pack": "npm run preelectron-pack && electron-builder --dir",
+    "dist": "npm run build && electron-builder",
+    "postinstall": "install-app-deps"
   },
   "eslintConfig": {
     "extends": "react-app"
@@ -37,8 +50,20 @@
       "last 1 safari version"
     ]
   },
-  "devDependencies": {
-    "electron": "^7.1.4",
-    "foreman": "^3.0.1"
+  "build": {
+    "appId": "com.electron.${productName}",
+    "productName": "ClockWithCountdownTimer",
+    "copyright": "Copyright © 2020 ${author}",
+    "win": {
+      "icon": "https://cdn2.iconfinder.com/data/icons/designer-skills/128/react-256.png"
+    },
+    "files": [
+      "build/**/*",
+      "node_modules/**/*"
+    ],
+    "directories": {
+      "buildResources": "public",
+      "output": "${productName}v0"
+    }
   }
 }

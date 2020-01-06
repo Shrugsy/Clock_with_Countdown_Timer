@@ -1,0 +1,17 @@
+directories:
+  output: dist
+  buildResources: public
+files:
+  - filter:
+      - build/**/*
+      - build/**/*
+      - node_modules/**/*
+extraMetadata:
+  main: build/electron.js
+appId: 'com.electron.${productName}'
+productName: ClockWithCountdownTimer
+copyright: 'Copyright © 2020 ${author}'
+win:
+  icon: 'https://cdn2.iconfinder.com/data/icons/designer-skills/128/react-256.png'
+extends: react-cra
+electronVersion: 7.1.7
