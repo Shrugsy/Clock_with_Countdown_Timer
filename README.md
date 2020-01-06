@@ -1,5 +1,5 @@
 # Clock_with_Countdown_Timer
-This project was created to demonstrate the use of react.js in combination with electron. The basis of this is from https://github.com/csepulv/electron-with-create-react-app
+This project was created to demonstrate an implementation of react.js in combination with electron. The basis of this is from https://github.com/csepulv/electron-with-create-react-app
 
 The project itself is intended to be a large desktop clock with a toggleable timer (similar to the functionality of the google timer)
 
