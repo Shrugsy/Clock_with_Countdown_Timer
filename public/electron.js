@@ -14,8 +14,8 @@ const url = require('url');
 let mainWindow;
 
 let width = 480;
-let heightSmall = 145;
-let heightLarge = 250;
+let heightSmall = 125;
+let heightLarge = 200;
 
 const {ipcMain} = require('electron')
 
